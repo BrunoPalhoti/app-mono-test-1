@@ -2,7 +2,20 @@
   "env": {
     "node": true,
     "es2021": true
+    
   },
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "files": ["**/tests/**/*.js", "**/__tests__/**/*.js", "**/teste/**/*.js", "**/*.test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended"
