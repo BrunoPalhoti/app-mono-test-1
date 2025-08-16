@@ -10,7 +10,8 @@ export default [
         require: 'readonly',
         module: 'readonly',
         __dirname: 'readonly',
-        process: 'readonly'
+        process: 'readonly',
+        console: 'readonly'
       }
     },
     plugins: {
@@ -20,7 +21,8 @@ export default [
       'prettier/prettier': 'error',
       'no-undef': 'error',
       'no-unused-vars': 'error',
-      'no-unreachable': 'error'
+      'no-unreachable': 'error',
+      'no-console': 'off'
     }
   }
 ]
