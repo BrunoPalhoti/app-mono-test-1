@@ -1,4 +1,4 @@
-import prettierPlugin from 'eslint-plugin-prettier';
+import prettierPlugin from 'eslint-plugin-prettier'
 
 export default [
   {
@@ -10,14 +10,17 @@ export default [
         require: 'readonly',
         module: 'readonly',
         __dirname: 'readonly',
-        process: 'readonly',
-      },
+        process: 'readonly'
+      }
     },
     plugins: {
-      prettier: prettierPlugin,
+      prettier: prettierPlugin
     },
     rules: {
       'prettier/prettier': 'error',
-    },
-  },
-];
+      'no-undef': 'error',
+      'no-unused-vars': 'error',
+      'no-unreachable': 'error'
+    }
+  }
+]
