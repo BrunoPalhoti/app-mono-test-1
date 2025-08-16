@@ -16,13 +16,12 @@ describe('Users endpoints', () => {
     expect(res.statusCode).toBe(201)
     expect(res.body).toHaveProperty('created')
     expect(res.body.created).toMatchObject(expect.objectContaining({ name: 'Teste', email: 'teste@example.com' }))
-    // guardar id para próximos testes
+
     const createdId = res.body.created.id
     expect(createdId).toBeDefined()
   })
 
   test('PATCH /users/updateUser/:id - atualiza usuário', async () => {
-    // cria um usuário para atualizar
     const create = await request(app).post('/users/createUser').send({ name: 'Updatable', email: 'up@example.com' })
     const id = create.body.created.id
     const res = await request(app).patch(`/users/updateUser/${id}`).send({ name: 'Updated Name' })
@@ -31,12 +30,11 @@ describe('Users endpoints', () => {
   })
 
   test('DELETE /users/deleteUser/:id - remove usuário', async () => {
-    // cria um usuário para deletar
     const create = await request(app).post('/users/createUser').send({ name: 'Removeme', email: 'rm@example.com' })
     const id = create.body.created.id
     const res = await request(app).delete(`/users/deleteUser/${id}`)
     expect(res.statusCode).toBe(200)
-    // verificar remoção
+
     const list = await request(app).get('/users/getUsers')
     expect(list.body.find((u) => u.id === String(id))).toBeUndefined()
   })
