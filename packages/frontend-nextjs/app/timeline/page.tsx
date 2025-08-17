@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useGetPosts } from './api/useGetPosts';
+import { usePostPosts } from './api/usePostPosts';
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 
@@ -20,23 +21,22 @@ export default function TimelinePage() {
   const [posts, setPosts] = useState<any[]>([]);
   const [content, setContent] = useState("");
   const { profile } = useAuth();
+  const { postNew, loading } = usePostPosts();
 
   React.useEffect(() => {
     setPosts(backendPosts);
   }, [backendPosts]);
 
-  const handlePost = () => {
+  const handlePost = async () => {
     if (!content.trim() || !profile) return;
-    const newPost = {
-      id: posts.length + 1,
-      user: profile.name,
-      avatar: profile.avatar,
-      content,
-      date: new Date().toLocaleString('pt-BR'),
-      like: 0,
-    };
-    setPosts([newPost, ...posts]);
-    setContent("");
+    // Supondo que profile.id seja o userId
+    const userId = profile.id || 4;
+    const result = await postNew({ title: "", content, userId });
+    if (result) {
+      // Adiciona o novo post à lista local
+      setPosts([result, ...posts]);
+      setContent("");
+    }
   };
 
   return (
@@ -60,8 +60,9 @@ export default function TimelinePage() {
             onClick={handlePost}
             color='primary'
             sx={{ minWidth: 120, height: 48, fontWeight: 600, fontSize: '1rem', boxShadow: '0 2px 12px rgba(0,128,0,0.10)' }}
+            disabled={loading}
           >
-            Postar
+            {loading ? 'Postando...' : 'Postar'}
           </Button>
         </Box>
         <Stack spacing={3}>
