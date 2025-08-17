@@ -7,7 +7,7 @@ const posts = (mockGetPosts._posts ||= [
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     content: "Primeiro post na timeline!",
     date: "2025-08-17 10:00",
-    like: 0,
+   
 
   }
 ,
@@ -19,7 +19,7 @@ const posts = (mockGetPosts._posts ||= [
     avatar: "https://randomuser.me/api/portraits/men/31.jpg",
     content: "Primeiro post na timeline!",
     date: "2025-08-17 10:00",
-    like: 0,
+    
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const posts = (mockGetPosts._posts ||= [
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     content: "Curtindo muito esse app 😍",
     date: "2025-08-17 11:30",
-    like: 0,
+  
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const posts = (mockGetPosts._posts ||= [
     avatar: "https://randomuser.me/api/portraits/men/65.jpg",
     content: "Alguém viu as novidades?",
     date: "2025-08-17 12:15",
-    like: 0,
+
   },
 ])
 

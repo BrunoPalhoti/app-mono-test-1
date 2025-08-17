@@ -14,6 +14,7 @@ import { useGetPosts } from './api/useGetPosts';
 import { usePostPosts } from './api/usePostPosts';
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useLikePost } from './api/useLikePost';
 
 
 export default function TimelinePage() {
@@ -22,9 +23,16 @@ export default function TimelinePage() {
   const [content, setContent] = useState("");
   const { profile } = useAuth();
   const { postNew, loading } = usePostPosts();
+  const { likePost, loading: likeLoading } = useLikePost();
 
   React.useEffect(() => {
-    setPosts(backendPosts);
+    
+    const sorted = [...backendPosts].sort((a, b) => {
+      const dateA = new Date(a.date || a.createdAt || 0).getTime();
+      const dateB = new Date(b.date || b.createdAt || 0).getTime();
+      return dateB - dateA;
+    });
+    setPosts(sorted);
   }, [backendPosts]);
 
   const handlePost = async () => {
@@ -43,10 +51,18 @@ export default function TimelinePage() {
         date: new Date().toLocaleString(),
         like: 0,
       };
-      setPosts([newPost, ...posts]);
+     
+      const updatedPosts = [newPost, ...posts];
+      updatedPosts.sort((a, b) => {
+        const dateA = new Date(a.date || a.createdAt || 0).getTime();
+        const dateB = new Date(b.date || b.createdAt || 0).getTime();
+        return dateB - dateA;
+      });
+      setPosts(updatedPosts);
       setContent("");
     }
   };
+
 
   return (
     <Box minHeight="100vh" className="timeline-bg" display="flex" flexDirection="column" alignItems="center" py={8}>
@@ -76,6 +92,7 @@ export default function TimelinePage() {
         </Box>
         <Stack spacing={3}>
           {posts.map((post) => (
+            
             <Card key={post.id} elevation={3} className="timeline-card">
               <CardContent>
                 <Box display="flex" gap={2} alignItems="flex-start">
@@ -93,11 +110,28 @@ export default function TimelinePage() {
                       {post.content}
                     </Typography>
                     <Box display="flex" alignItems="center" gap={1} mt={1}>
-                      <IconButton aria-label="like" size="small" color="error" disabled>
+                      <IconButton
+                        aria-label="like"
+                        size="small"
+                        color="error"
+                        disabled={likeLoading}
+                        onClick={async () => {
+                          if (profile) {
+                            const data = await likePost(post.id, profile.id);
+                            if (data && typeof data.likes === 'number') {
+                              setPosts((prev) =>
+                                prev.map((p) =>
+                                  p.id === post.id ? { ...p, likes: data.likes } : p
+                                )
+                              );
+                            }
+                          }
+                        }}
+                      >
                         <FavoriteIcon />
                       </IconButton>
                       <Typography variant="body2" color="text.secondary">
-                        {post.like}
+                        {post.likes || 0}
                       </Typography>
                     </Box>
                   </Box>
