@@ -46,7 +46,7 @@ export default function TimelinePage() {
     if (!content.trim()) return;
     const newPost = {
       id: posts.length + 1,
-      user: "Novo Usuário",
+      user: "Bruno",
       avatar: "https://randomuser.me/api/portraits/men/10.jpg",
       content,
       date: new Date().toLocaleString('pt-BR'),
@@ -57,26 +57,33 @@ export default function TimelinePage() {
   };
 
   return (
-    <Box minHeight="100vh" bgcolor="#f5f5f5" display="flex" flexDirection="column" alignItems="center" py={8}>
+    <Box minHeight="100vh" className="timeline-bg" display="flex" flexDirection="column" alignItems="center" py={8}>
       <Box width="100%" maxWidth={500}>
         <Typography variant="h4" fontWeight={700} color="primary" align="center" mb={4}>
           Timeline
         </Typography>
-        <Box display="flex" gap={2} mb={3}>
+        <Box display="flex" gap={2} mb={3} alignItems="center" justifyContent="center">
           <TextField
             label="Escreva seu post"
             variant="outlined"
             fullWidth
             value={content}
             onChange={e => setContent(e.target.value)}
+            color='primary'
+            inputProps={{ maxLength: 180 }}
           />
-          <Button variant="contained" color="primary" onClick={handlePost}>
+          <Button
+            variant="contained"
+            onClick={handlePost}
+            color='primary'
+            sx={{ minWidth: 120, height: 48, fontWeight: 600, fontSize: '1rem', boxShadow: '0 2px 12px rgba(0,128,0,0.10)' }}
+          >
             Postar
           </Button>
         </Box>
         <Stack spacing={3}>
           {posts.map((post) => (
-            <Card key={post.id} elevation={3}>
+            <Card key={post.id} elevation={3} className="timeline-card">
               <CardContent>
                 <Box display="flex" gap={2} alignItems="flex-start">
                   <Avatar src={post.avatar} alt={post.user} sx={{ width: 56, height: 56 }} />
