@@ -2,7 +2,7 @@ export const mockGetPosts = (newPost) => {
 const posts = (mockGetPosts._posts ||= [
   {
     id: 1,
-    user_id: 11,
+    user_id: 1,
     user: "Bruno Palhoti",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     content: "Primeiro post na timeline!",
