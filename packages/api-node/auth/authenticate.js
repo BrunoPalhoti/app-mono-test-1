@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret'
 
 export const authenticate = (req, res, next) => {
+  console.log('Authenticating user...')
   const authHeader = req.headers.authorization
   if (!authHeader) return res.status(401).json({ message: 'No token provided' })
 

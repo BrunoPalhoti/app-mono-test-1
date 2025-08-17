@@ -1,6 +1,9 @@
-import app from './app.js'
+import express from 'express';
+import app from './app.js';
 
-const port = 3333
+app.set('trust proxy', true);
+
+const port = 3333;
 app.listen(port, () => {
-  console.log(`API rodando na porta ${port}`)
-})
+  console.log(`API rodando na porta ${port}`);
+});

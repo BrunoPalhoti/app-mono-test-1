@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
 
+const authenticatedEmails = [];
+
 const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret'
 
 function mockGetUsers() {
@@ -33,6 +35,9 @@ export const login = (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
 
+  // Salva o e-mail autenticado em memória
+  authenticatedEmails.push(user.email);
+
   const payload = {
     id: user.id,
     email: user.email,
@@ -42,12 +47,13 @@ export const login = (req, res) => {
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' })
 
-   
-    const profile = {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      profileType: user.profileType
-    }
-    return res.json({ token, profile })
+  const profile = {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    profileType: user.profileType
+  }
+  return res.json({ token, profile })
 }
+// Exporta para acesso externo
+export { authenticatedEmails };
