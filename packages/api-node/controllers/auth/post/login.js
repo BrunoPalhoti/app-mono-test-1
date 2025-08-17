@@ -6,14 +6,14 @@ function mockGetUsers() {
   return [
     {
       id: 1,
-      email: 'test@example.com',
-      name: 'Test User',
+      email: 'bruno@gmail.com',
+      name: 'Bruno',
       profileType: 'admin'
     },
     {
       id: 2,
-      email: 'user@example.com',
-      name: 'Regular User',
+      email: 'maria@gmail.com',
+      name: 'Maria',
       profileType: 'user'
     }
   ]
@@ -42,5 +42,12 @@ export const login = (req, res) => {
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' })
 
-  return res.json({ token })
+   
+    const profile = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      profileType: user.profileType
+    }
+    return res.json({ token, profile })
 }
