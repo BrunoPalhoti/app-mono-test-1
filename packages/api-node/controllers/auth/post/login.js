@@ -10,13 +10,15 @@ function mockGetUsers() {
       id: 1,
       email: 'bruno@gmail.com',
       name: 'Bruno',
-      profileType: 'admin'
+      profileType: 'admin',
+      avatar: 'https://randomuser.me/api/portraits/men/10.jpg'
     },
     {
       id: 2,
       email: 'maria@gmail.com',
       name: 'Maria',
-      profileType: 'user'
+      profileType: 'user',
+      avatar: 'https://randomuser.me/api/portraits/women/10.jpg'
     }
   ]
 }
@@ -35,14 +37,15 @@ export const login = (req, res) => {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
 
-  // Salva o e-mail autenticado em memória
+
   authenticatedEmails.push(user.email);
 
   const payload = {
     id: user.id,
     email: user.email,
     name: user.name,
-    profileType: user.profileType
+    profileType: user.profileType,
+    avatar: user.avatar
   }
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' })
@@ -51,9 +54,10 @@ export const login = (req, res) => {
     id: user.id,
     email: user.email,
     name: user.name,
-    profileType: user.profileType
+    profileType: user.profileType,
+    avatar: user.avatar
   }
   return res.json({ token, profile })
 }
-// Exporta para acesso externo
+
 export { authenticatedEmails };
