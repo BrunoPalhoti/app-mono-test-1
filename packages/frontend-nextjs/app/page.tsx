@@ -5,19 +5,20 @@ import { Card, CardContent, TextField, Button, Typography } from "@mui/material"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAuthenticate } from "./api/useAuthenticate";
+import { useAuth } from "./context/AuthContext";
 
 export default function Login() {
   const router = useRouter();
   const { login, error, loading, email } = useAuthenticate();
+  const { setAuth } = useAuth();
   const [emailInput, setEmailInput] = useState("");
   const [password, setPassword] = useState("");
 
-type LoginResult = { success: boolean } | null;
-
-const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
-  const result: LoginResult = await login(emailInput, password);
-  if (result !== null && result.success) {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await login(emailInput, password);
+    if (result !== null && result.success && result.token && result.profile) {
+      setAuth(result.token, { ...result.profile, avatar: result.profile.avatar ?? "" });
     router.push("/timeline");
   }
 };

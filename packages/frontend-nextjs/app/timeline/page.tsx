@@ -10,44 +10,27 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
+import { useGetPosts } from './api/useGetPosts';
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
 
-const initialPosts = [
-  {
-    id: 1,
-    user: "João Silva",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-    content: "Primeiro post na timeline!",
-    date: "2025-08-17 10:00",
-    like: 0,
-  },
-  {
-    id: 2,
-    user: "Maria Souza",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    content: "Curtindo muito esse app 😍",
-    date: "2025-08-17 11:30",
-    like: 0,
-  },
-  {
-    id: 3,
-    user: "Carlos Lima",
-    avatar: "https://randomuser.me/api/portraits/men/65.jpg",
-    content: "Alguém viu as novidades?",
-    date: "2025-08-17 12:15",
-    like: 0,
-  },
-];
 
 export default function TimelinePage() {
-  const [posts, setPosts] = useState(initialPosts);
+  const { posts: backendPosts } = useGetPosts();
+  const [posts, setPosts] = useState<any[]>([]);
   const [content, setContent] = useState("");
+  const { profile } = useAuth();
+
+  React.useEffect(() => {
+    setPosts(backendPosts);
+  }, [backendPosts]);
 
   const handlePost = () => {
-    if (!content.trim()) return;
+    if (!content.trim() || !profile) return;
     const newPost = {
       id: posts.length + 1,
-      user: "Bruno",
-      avatar: "https://randomuser.me/api/portraits/men/10.jpg",
+      user: profile.name,
+      avatar: profile.avatar,
       content,
       date: new Date().toLocaleString('pt-BR'),
       like: 0,
