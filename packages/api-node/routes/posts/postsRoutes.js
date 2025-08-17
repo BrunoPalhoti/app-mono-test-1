@@ -6,8 +6,8 @@ import { authenticate } from '../../auth/authenticate.js'
 
 const router = Router()
 
-router.get('/', getPosts)
-router.post('/', createPost)
+router.get('/', authenticate, getPosts)
+router.post('/', authenticate, createPost)
 router.post('/:id/like', authenticate, likePost)
 
 export default router
