@@ -1,3 +1,4 @@
+"use client";
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,7 +7,11 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
-const posts = [
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { useState } from 'react';
+
+const initialPosts = [
   {
     id: 1,
     user: "João Silva",
@@ -34,12 +39,41 @@ const posts = [
 ];
 
 export default function TimelinePage() {
+  const [posts, setPosts] = useState(initialPosts);
+  const [content, setContent] = useState("");
+
+  const handlePost = () => {
+    if (!content.trim()) return;
+    const newPost = {
+      id: posts.length + 1,
+      user: "Novo Usuário",
+      avatar: "https://randomuser.me/api/portraits/men/10.jpg",
+      content,
+      date: new Date().toLocaleString('pt-BR'),
+      like: 0,
+    };
+    setPosts([newPost, ...posts]);
+    setContent("");
+  };
+
   return (
     <Box minHeight="100vh" bgcolor="#f5f5f5" display="flex" flexDirection="column" alignItems="center" py={8}>
       <Box width="100%" maxWidth={500}>
         <Typography variant="h4" fontWeight={700} color="primary" align="center" mb={4}>
           Timeline
         </Typography>
+        <Box display="flex" gap={2} mb={3}>
+          <TextField
+            label="Escreva seu post"
+            variant="outlined"
+            fullWidth
+            value={content}
+            onChange={e => setContent(e.target.value)}
+          />
+          <Button variant="contained" color="primary" onClick={handlePost}>
+            Postar
+          </Button>
+        </Box>
         <Stack spacing={3}>
           {posts.map((post) => (
             <Card key={post.id} elevation={3}>
