@@ -29,12 +29,21 @@ export default function TimelinePage() {
 
   const handlePost = async () => {
     if (!content.trim() || !profile) return;
-    // Supondo que profile.id seja o userId
-    const userId = profile.id || 4;
+
+    const userId = profile.id;
+    const avatar = profile.avatar || "";
+    const user = profile.name || "Usuário";
     const result = await postNew({ title: "", content, userId });
     if (result) {
-      // Adiciona o novo post à lista local
-      setPosts([result, ...posts]);
+      
+      const newPost = {
+        ...result,
+        avatar,
+        user,
+        date: new Date().toLocaleString(),
+        like: 0,
+      };
+      setPosts([newPost, ...posts]);
       setContent("");
     }
   };
