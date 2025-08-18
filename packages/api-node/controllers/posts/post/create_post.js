@@ -1,4 +1,4 @@
-import pool from '../../../models/db.js'
+import pool, { isUserActive } from '../../../models/db.js'
 
 export const createPost = async (req, res) => {
   const { title, content } = req.body
@@ -12,8 +12,8 @@ export const createPost = async (req, res) => {
     return res.status(400).json({ message: 'userId is required as query or param' })
   }
 
-  const userResult = await pool.query('SELECT * FROM users WHERE id = $1 AND active = true', [userId])
-  if (userResult.rowCount === 0) {
+  const active = await isUserActive(userId)
+  if (!active) {
     return res.status(403).json({ message: 'Usuário inativo ou não encontrado' })
   }
 
