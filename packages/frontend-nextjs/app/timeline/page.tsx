@@ -21,10 +21,15 @@ export default function TimelinePage() {
   return (
     <Box
       minHeight="100vh"
+      width="100vw"
       display="flex"
       flexDirection="column"
       alignItems="center"
-      sx={{ bgcolor: "#f9fafb" }}
+      sx={{
+        background: "linear-gradient(135deg, #1e293b 0%, #00B877 100%)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
       {profile && (
         <TimelineHeader profile={profile} />
