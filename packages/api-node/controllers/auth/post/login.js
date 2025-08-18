@@ -10,7 +10,6 @@ export const login = async (req, res) => {
     return res.status(400).json({ message: 'Email and password are required' })
   }
 
-  // Busca usuário no banco
   const result = await db.query('SELECT * FROM users WHERE email = $1', [email])
   const user = result.rows[0]
 
