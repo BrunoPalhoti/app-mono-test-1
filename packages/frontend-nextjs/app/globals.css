@@ -1,33 +1,116 @@
+.timeline-bg {
+  background-color: #fff;
+}
+.timeline-card {
+  background-color: rgb(var(--primary-light-rgb));
+  transition: background 0.2s;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+  --primary-rgb: 34, 139, 34; 
+  --primary-dark-rgb: 0, 64, 0; 
+  --primary-light-rgb: 144, 238, 144;
+  --accent-rgb: 50, 205, 50; 
+  --background-gradient-start: 220, 255, 220;
+  --background-gradient-end: 34, 139, 34;
+  --foreground-rgb: 20, 40, 20;
+  --button-rgb: 34, 139, 34;
+  --button-hover-rgb: 50, 205, 50;
+  --border-rgb: 0, 128, 0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --primary-rgb: 0, 128, 0;
+    --primary-dark-rgb: 0, 32, 0;
+    --primary-light-rgb: 60, 179, 113;
+    --accent-rgb: 0, 255, 128;
+    --background-gradient-start: 0, 32, 0;
+    --background-gradient-end: 0, 128, 0;
+    --foreground-rgb: 220, 255, 220;
+    --button-rgb: 0, 128, 0;
+    --button-hover-rgb: 0, 255, 128;
+    --border-rgb: 0, 255, 128;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-gradient-start));
+  min-height: 100vh;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-green {
+    color: rgb(var(--primary-rgb));
+  }
+  .bg-green {
+    background-color: rgb(var(--primary-light-rgb));
+  }
+  .bg-green-dark {
+    background-color: rgb(var(--primary-dark-rgb));
+  }
+  .border-green {
+    border-color: rgb(var(--border-rgb));
+  }
+  .green-bb {
+    background: linear-gradient(90deg, rgb(var(--button-rgb)), rgb(var(--button-hover-rgb)));
+  color: rgb(176, 247, 203);
+    border-radius: 8px;
+    padding: 0.5em 1.2em;
+    border: none;
+    box-shadow: 0 2px 8px rgba(var(--primary-dark-rgb), 0.08);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  .green-bb:hover {
+    background: linear-gradient(90deg, rgb(var(--button-hover-rgb)), rgb(var(--button-rgb)));
+  }
+
+  .textfield-green .MuiOutlinedInput-root {
+    background-color: #fff !important;
+    color: #222 !important;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(var(--primary-dark-rgb), 0.10);
+    transition: box-shadow 0.2s, border-color 0.2s, background-color 0.2s;
+    font-size: 1.08rem;
+    min-height: 48px;
+  }
+  .textfield-green .MuiOutlinedInput-notchedOutline {
+    border-color: rgb(var(--border-rgb));
+    border-width: 2px;
+    transition: border-color 0.2s;
+  }
+  .textfield-green .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: rgb(var(--accent-rgb));
+  }
+  .textfield-green .MuiInputLabel-root {
+    color: #222;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+  .textfield-green .MuiOutlinedInput-input {
+    padding: 12px 14px;
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .textfield-green .MuiOutlinedInput-root {
+    background-color: rgb(var(--primary-light-rgb)) !important;
+    color: rgb(var(--foreground-rgb)) !important;
+    box-shadow: 0 2px 12px rgba(var(--primary-light-rgb), 0.10);
+  }
+  .textfield-green .MuiInputLabel-root {
+    color: #1a3d1a;
   }
 }

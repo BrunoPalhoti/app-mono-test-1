@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Next.js - Timeline e Perfil de Usuário
 
-## Getting Started
+## Tecnologias Utilizadas
 
-First, run the development server:
+- **Next.js**: Framework React para aplicações server-side rendering e estáticas.
+- **React**: Biblioteca para construção de interfaces de usuário.
+- **MUI (Material UI)**: Biblioteca de componentes visuais para React.
+- **Tailwind CSS**: Framework para estilização rápida e responsiva.
+- **TypeScript**: Tipagem estática para maior segurança no desenvolvimento.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## O que foi implementado
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Página de Login (`/`)**: Autenticação de usuário utilizando MUI para o formulário.
+- **Página de Timeline (`/timeline`)**: Exibe as postagens dos usuários (estrutura pronta para integração com backend).
+- **Página de Perfil (`/profile`)**: Mostra dados do usuário logado, avatar, tipo de perfil e botão de logout, utilizando componentes MUI.
+- **Estrutura de componentes**: Utilização de componentes React para organização do layout.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Estilização global**: Arquivo [`app/globals.css`](packages/frontend-nextjs/app/globals.css) com Tailwind CSS.
+- **Layout customizado**: Arquivo [`app/layout.tsx`](packages/frontend-nextjs/app/layout.tsx) para estrutura base da aplicação.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Como subir o projeto
 
-## Learn More
+1. Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Execute o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Acesse o frontend em: [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

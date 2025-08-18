@@ -1,15 +1,9 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+import express from 'express';
+import app from './app.js';
 
-app.use(express.json());
+app.set('trust proxy', true);
 
-let users = [];
-
-app.get('/users', (req, res) => res.json(users));
-app.post('/users', (req, res) => {
-  users.push(req.body);
-  res.status(201).json(req.body);
+const port = 3333;
+app.listen(port, () => {
+  console.log(`API rodando na porta ${port}`);
 });
-
-app.listen(port, () => console.log(`API running on http://localhost:${port}`));
