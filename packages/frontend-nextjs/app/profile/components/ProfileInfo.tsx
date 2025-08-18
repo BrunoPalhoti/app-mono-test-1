@@ -1,4 +1,5 @@
 import { Typography, Button, Box } from '@mui/material';
+import { useLogoutRedirect } from '../hooks/useLogoutRedirect';
 
 interface ProfileInfoProps {
   name: string;
@@ -8,6 +9,7 @@ interface ProfileInfoProps {
 }
 
 export default function ProfileInfo({ name, email, profileType, onLogout }: ProfileInfoProps) {
+  const handleLogout = useLogoutRedirect(onLogout);
   return (
     <>
       <Typography variant="h3" fontWeight={800} sx={{ color: "#00B877", mb: 1, textAlign: "center", letterSpacing: 1 }}>{name}</Typography>
@@ -35,7 +37,7 @@ export default function ProfileInfo({ name, email, profileType, onLogout }: Prof
             boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
           },
         }}
-        onClick={onLogout}
+        onClick={handleLogout}
       >
         Sair
       </Button>

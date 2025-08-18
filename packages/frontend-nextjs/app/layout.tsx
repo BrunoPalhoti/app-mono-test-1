@@ -2,6 +2,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
+import { LoadingProvider, useGlobalLoading } from "./context/LoadingContext";
+import GlobalLoading from "./components/GlobalLoading/GlobalLoading";
 import { AuthProvider } from "./context/AuthContext";
 import { CustomToolbar} from "./components/CustomToolbar/CustomToolbar";
 import { useAppTheme } from "./api/hooks/useAppTheme";
@@ -20,6 +22,7 @@ const { sidebarOpen, setSidebarOpen, theme } = useAppTheme();
   return (
     <html lang="en">
       <body className={inter.className}>
+        <LoadingProvider>
           <AuthProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
@@ -33,12 +36,18 @@ const { sidebarOpen, setSidebarOpen, theme } = useAppTheme();
                 )}
               </AppBar>
               <Drawer anchor="left" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
-              
               </Drawer>
+              <GlobalLoadingWrapper />
               {children}
             </ThemeProvider>
           </AuthProvider>
+        </LoadingProvider>
       </body>
     </html>
   );
+function GlobalLoadingWrapper() {
+  const { loading } = useGlobalLoading();
+  if (!loading) return null;
+  return <GlobalLoading />;
+}
 }
