@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { useGetPosts } from "../api/useGetPosts";
 import { usePostPosts } from "../api/usePostPosts";

@@ -1,9 +1,7 @@
 import React from "react";
-import { Toolbar, IconButton } from "@mui/material";
+import { Toolbar, IconButton, Typography } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import MenuIcon from '@mui/icons-material/Menu';
-
 
 interface CustomToolbarProps {
   mode: 'light' | 'dark';
@@ -13,7 +11,8 @@ interface CustomToolbarProps {
   isLogin?: boolean;
 }
 
-export function CustomToolbar({ mode, setMode, setSidebarOpen, isHome, isLogin }: CustomToolbarProps) {
+export function CustomToolbar({ mode, setMode, isHome, isLogin }: CustomToolbarProps) {
+
   return (
     <Toolbar>
       {isHome ? (
