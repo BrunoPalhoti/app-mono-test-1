@@ -1,68 +1,79 @@
-
-
 "use client"
-import { Card, CardContent, TextField, Button, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useAuthenticate } from "./api/useAuthenticate";
-import { useAuth } from "./context/AuthContext";
+import { Box, Typography, Button, useTheme } from '@mui/material';
+import { useAuth } from './context/AuthContext';
+import Image from 'next/image';
 
-export default function Login() {
-  const router = useRouter();
-  const { login, error, loading, email } = useAuthenticate();
-  const { setAuth } = useAuth();
-  const [emailInput, setEmailInput] = useState("");
-  const [password, setPassword] = useState("");
+export default function Home() {
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = await login(emailInput, password);
-    if (result !== null && result.success && result.token && result.profile) {
-      setAuth(result.token, { ...result.profile, avatar: result.profile.avatar ?? "" });
-    router.push("/timeline");
-  }
-};
-
+  const theme = useTheme();
+  const { token } = useAuth();
   return (
-    <Card sx={{ maxWidth: 400, margin: '40px auto', padding: 2 }}>
-      <CardContent>
-        <Typography variant="h5" component="div" gutterBottom>
-          Login
-        </Typography>
-        <form onSubmit={handleLogin}>
-          <TextField
-            label="E-mail"
-            type="email"
-            fullWidth
-            margin="normal"
-            required
-            value={emailInput}
-            onChange={e => setEmailInput(e.target.value)}
-          />
-          <TextField
-            label="Senha"
-            type="password"
-            fullWidth
-            margin="normal"
-            required
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }} disabled={loading}>
-            {loading ? "Entrando..." : "Entrar"}
-          </Button>
-        </form>
-        {error && (
-          <Typography color="error" sx={{ mt: 2 }}>
-            {error}
-          </Typography>
-        )}
-        {email && (
-          <Typography color="success" sx={{ mt: 2 }}>
-            Bem-vindo, {email}!
-          </Typography>
-        )}
-      </CardContent>
-    </Card>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        bgcolor: theme.palette.background.default,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        pt: 6,
+      }}
+    >
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 700,
+          mb: 2,
+          color: theme.palette.primary.main,
+          textShadow: 'none',
+        }}
+      >
+        Bem-vindo à Timeline!
+      </Typography>
+      <Typography
+        variant="body1"
+        sx={{
+          fontSize: '1.2rem',
+          color: theme.palette.text.secondary,
+          mb: 4,
+          textAlign: 'center',
+          maxWidth: 480,
+          fontWeight: 600,
+        }}
+      >
+        Aqui você acompanha os posts mais recentes, interage com outros usuários e compartilha novidades.
+      </Typography>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 480,
+          mb: 4,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Image
+          src="/time 1.png"
+          alt="Time 1 interagindo na timeline"
+          width={480}
+          height={320}
+          style={{
+            width: '100%',
+            borderRadius: 24,
+            boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ mb: 5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2, px: 3, py: 1, color: '#fff' }}
+        onClick={() => window.location.href = token ? '/timeline' : '/login'}
+      >
+        Ir para Timeline
+      </Button>
+    </Box>
   );
 }

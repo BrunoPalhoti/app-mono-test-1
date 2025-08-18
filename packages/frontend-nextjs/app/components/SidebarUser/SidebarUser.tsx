@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Typography, IconButton } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 export function SidebarUser() {
   const { profile, token } = useAuth();

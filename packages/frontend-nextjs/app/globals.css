@@ -39,6 +39,12 @@
   }
 }
 
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background-color: rgb(var(--background-gradient-start));
@@ -103,6 +109,12 @@ body {
   }
 }
 
+
+
+.home-bg {
+  background: #00D084;
+  min-height: 100vh;
+}
 
 @media (prefers-color-scheme: dark) {
   .textfield-green .MuiOutlinedInput-root {

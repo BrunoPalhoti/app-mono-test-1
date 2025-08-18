@@ -1,8 +1,9 @@
-import { mockGetPosts } from '../../../mock/mock-posts.js'
+import pool, { isUserActive } from '../../../models/db.js'
 
-export const createPost = (req, res) => {
+export const createPost = async (req, res) => {
   const { title, content } = req.body
   const userId = req.params.userId || req.query.userId
+
   if (!title && !content) {
     return res.status(400).json({ message: 'title or content is required' })
   }
@@ -11,7 +12,20 @@ export const createPost = (req, res) => {
     return res.status(400).json({ message: 'userId is required as query or param' })
   }
 
-  const posts = mockGetPosts({ title, content, userId })
-  const created = posts[0]
-  return res.status(201).json(created)
+  const active = await isUserActive(userId)
+  if (!active) {
+    return res.status(403).json({ message: 'Usuário inativo ou não encontrado' })
+  }
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO posts (user_id, title, content)
+       VALUES ($1, $2, $3)
+       RETURNING *`,
+      [userId, title, content]
+    )
+    return res.status(201).json(result.rows[0])
+  } catch (error) {
+    return res.status(500).json({ message: 'Erro ao criar post', error })
+  }
 }

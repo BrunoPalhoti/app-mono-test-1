@@ -1,24 +1,18 @@
-# Frontend Next.js - Timeline e Perfil de Usuário
+# Histórico de Alterações - Projeto Frontend Next.js
 
-## Tecnologias Utilizadas
+## Principais melhorias e implementações
 
-- **Next.js**: Framework React para aplicações server-side rendering e estáticas.
-- **React**: Biblioteca para construção de interfaces de usuário.
-- **MUI (Material UI)**: Biblioteca de componentes visuais para React.
-- **Tailwind CSS**: Framework para estilização rápida e responsiva.
-- **TypeScript**: Tipagem estática para maior segurança no desenvolvimento.
+- Refatorei a estrutura de componentes para maior reutilização e organização do código.
+- Implementei autenticação de usuário na página de login, integrando com backend via JWT.
+- Adicionei integração completa da Timeline com a API, exibindo posts dinâmicos e atualizando likes em tempo real.
+- Criei página de perfil com exibição de dados do usuário logado, avatar dinâmico e botão de logout funcional.
+- Padronizei estilos globais utilizando Tailwind CSS e MUI, garantindo responsividade e visual moderno.
+- Corrigi bugs de renderização e estados, melhorando a experiência do usuário.
+- Documentei endpoints e fluxos principais para facilitar manutenção e onboarding de novos devs.
+- Adicionei testes unitários para hooks e componentes críticos, aumentando a confiabilidade do projeto.
+- Otimizei chamadas à API, reduzindo tempo de resposta e melhorando performance da aplicação.
 
-## O que foi implementado
-
-- **Página de Login (`/`)**: Autenticação de usuário utilizando MUI para o formulário.
-- **Página de Timeline (`/timeline`)**: Exibe as postagens dos usuários (estrutura pronta para integração com backend).
-- **Página de Perfil (`/profile`)**: Mostra dados do usuário logado, avatar, tipo de perfil e botão de logout, utilizando componentes MUI.
-- **Estrutura de componentes**: Utilização de componentes React para organização do layout.
-
-- **Estilização global**: Arquivo [`app/globals.css`](packages/frontend-nextjs/app/globals.css) com Tailwind CSS.
-- **Layout customizado**: Arquivo [`app/layout.tsx`](packages/frontend-nextjs/app/layout.tsx) para estrutura base da aplicação.
-
-## Como subir o projeto
+## Como testar as alterações
 
 1. Instale as dependências:
     ```bash
@@ -30,7 +24,8 @@
     npm run dev
     ```
 
-3. Acesse o frontend em: [http://localhost:3000](http://localhost:3000)
+3. Acesse [http://localhost:3000](http://localhost:3000) e navegue pelas páginas de Login, Timeline e Perfil para validar as funcionalidades.
 
+---
 
-
+Essas mudanças garantem melhor escalabilidade, organização e experiência para o usuário e para o time de desenvolvimento.

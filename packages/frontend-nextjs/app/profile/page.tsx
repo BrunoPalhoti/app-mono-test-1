@@ -1,35 +1,51 @@
 "use client";
-import { Card, CardContent, Typography, Avatar, Box, Button } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
+import { Box, Typography } from '@mui/material';
+import { useProfilePage } from './hooks/useProfilePage';
+import ProfileAvatar from './components/ProfileAvatar';
+import ProfileInfo from './components/ProfileInfo';
 
 export default function Profile() {
-  const { profile, logout } = useAuth();
- 
-  if (!profile) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <Typography variant="h6" color="error">Usuário não logado</Typography>
-      </Box>
-    );
-  }
+  const { profile, logout, notLoggedComponent } = useProfilePage();
+
+  if (notLoggedComponent) return notLoggedComponent;
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-      <Card sx={{ minWidth: 350, maxWidth: 400, p: 3 }}>
-        <CardContent>
-          <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-            <Avatar src={profile.avatar || 'https://via.placeholder.com/150'} sx={{ width: 100, height: 100 }} />
-            <Typography variant="h5" fontWeight={700}>{profile.name}</Typography>
-            <Typography variant="body1" color="text.secondary">{profile.email}</Typography>
-            <Typography variant="body2" color="primary" fontWeight={600}>
-              Tipo: {profile.profileType}
-            </Typography>
-            <Button variant="outlined" color="error" sx={{ mt: 2 }} onClick={logout}>
-              Sair
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        background: "linear-gradient(135deg, #1e293b 0%, #00B877 100%)",
+        position: "relative",
+        overflow: "hidden",
+        p: { xs: 1, md: 3 },
+      }}
+    >
+      <Box
+        sx={{
+          width: { xs: "100%", md: 600 },
+          maxWidth: "100%",
+          px: { xs: 2, sm: 4 },
+          py: { xs: 2, sm: 4 },
+          borderRadius: 6,
+          boxShadow: "0 12px 40px rgba(0,0,0,0.22)",
+          background: "rgba(255,255,255,0.98)",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <ProfileAvatar name={profile.name} avatar={profile.avatar} />
+        <ProfileInfo
+          name={profile.name}
+          email={profile.email}
+          profileType={profile.profileType}
+          onLogout={logout}
+        />
+      </Box>
     </Box>
   );
 }
