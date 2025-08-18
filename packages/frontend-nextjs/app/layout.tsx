@@ -16,22 +16,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-const { mode, setMode, sidebarOpen, setSidebarOpen, theme } = useAppTheme();
+const { sidebarOpen, setSidebarOpen, theme } = useAppTheme();
   return (
     <html lang="en">
       <body className={inter.className}>
           <AuthProvider>
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <AppBar position="static" color="primary" elevation={1}
-                sx={mode === 'dark' ? { backgroundColor: '#00D084' } : {}}>
-            
+              <AppBar position="static" color="primary" elevation={1}>
                 {typeof window !== 'undefined' && window.location.pathname === '/' ? (
-                  <CustomToolbar mode={mode} setMode={setMode} setSidebarOpen={setSidebarOpen} isHome={true} isLogin={false} />
+                  <CustomToolbar setSidebarOpen={setSidebarOpen} isHome={true} isLogin={false} />
                 ) : typeof window !== 'undefined' && window.location.pathname === '/login' ? (
-                  <CustomToolbar mode={mode} setMode={setMode} setSidebarOpen={setSidebarOpen} isHome={false} isLogin={true} />
+                  <CustomToolbar setSidebarOpen={setSidebarOpen} isHome={false} isLogin={true} />
                 ) : (
-                  <CustomToolbar mode={mode} setMode={setMode} setSidebarOpen={setSidebarOpen} isHome={false} isLogin={false} />
+                  <CustomToolbar setSidebarOpen={setSidebarOpen} isHome={false} isLogin={false} />
                 )}
               </AppBar>
               <Drawer anchor="left" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>

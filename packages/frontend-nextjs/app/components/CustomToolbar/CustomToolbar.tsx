@@ -1,10 +1,8 @@
 import React from "react";
 import { Toolbar, IconButton, Typography } from "@mui/material";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { CustomToolbarProps } from "./type/CustomToolbarProps";
 
-export function CustomToolbar({ mode, setMode, isHome, isLogin }: CustomToolbarProps) {
+export function CustomToolbar({ isHome }: CustomToolbarProps) {
 
   return (
     <Toolbar>
@@ -13,6 +11,7 @@ export function CustomToolbar({ mode, setMode, isHome, isLogin }: CustomToolbarP
           <span style={{ flexGrow: 1 }} />
           <IconButton
             color="inherit"
+            sx={{ color: "#FFFFFF" }}
             title="Ir para login"
             onClick={() => window.location.href = '/login'}
           >
@@ -24,6 +23,7 @@ export function CustomToolbar({ mode, setMode, isHome, isLogin }: CustomToolbarP
           <span style={{ flexGrow: 1 }} />
           <IconButton
             color="inherit"
+            sx={{ color: "#FFFFFF" }}
             title="Voltar para Home"
             onClick={() => window.location.href = '/'}
           >
@@ -31,9 +31,7 @@ export function CustomToolbar({ mode, setMode, isHome, isLogin }: CustomToolbarP
           </IconButton>
         </>
       )}
-      <IconButton onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} color="inherit" title="Alternar tema">
-        {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
-      </IconButton>
+
     </Toolbar>
   );
 }
