@@ -13,7 +13,7 @@ export const login = async (req, res) => {
   const result = await db.query('SELECT * FROM users WHERE email = $1', [email])
   const user = result.rows[0]
 
-  if (!user || password !== password) {
+  if (!user || password !== user.password) {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
 

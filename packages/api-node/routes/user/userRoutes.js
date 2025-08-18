@@ -82,7 +82,7 @@ router.get('/getUsers', authenticate, getUsers)
  *                 profileType:
  *                   type: string
  */
-router.post('/createUser', authenticate, createUser)
+router.post('/createUser', createUser)
 
 /**
  * @swagger
