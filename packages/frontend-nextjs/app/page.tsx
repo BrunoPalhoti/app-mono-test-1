@@ -1,16 +1,17 @@
 "use client"
 import { Box, Typography, Button, useTheme } from '@mui/material';
+import { useAuth } from './context/AuthContext';
 import Image from 'next/image';
 
 export default function Home() {
 
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
+  const { token } = useAuth();
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        bgcolor: isDark ? '#000' : theme.palette.background.default,
+        bgcolor: theme.palette.background.default,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -23,8 +24,8 @@ export default function Home() {
         sx={{
           fontWeight: 700,
           mb: 2,
-          color: isDark ? '#fff' : theme.palette.primary.main,
-          textShadow: isDark ? '0 2px 8px rgba(0,0,0,0.12)' : 'none',
+          color: theme.palette.primary.main,
+          textShadow: 'none',
         }}
       >
         Bem-vindo à Timeline!
@@ -33,7 +34,7 @@ export default function Home() {
         variant="body1"
         sx={{
           fontSize: '1.2rem',
-          color: isDark ? '#00D084' : theme.palette.text.secondary,
+          color: theme.palette.text.secondary,
           mb: 4,
           textAlign: 'center',
           maxWidth: 480,
@@ -60,7 +61,7 @@ export default function Home() {
           style={{
             width: '100%',
             borderRadius: 24,
-            boxShadow: isDark ? '0 4px 24px rgba(0,0,0,0.25)' : '0 4px 24px rgba(0,0,0,0.10)',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
             objectFit: 'cover',
           }}
         />
@@ -69,7 +70,7 @@ export default function Home() {
         variant="contained"
         color="primary"
         sx={{ mb: 5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2, px: 3, py: 1, color: '#fff' }}
-        onClick={() => window.location.href = '/timeline'}
+        onClick={() => window.location.href = token ? '/timeline' : '/login'}
       >
         Ir para Timeline
       </Button>
