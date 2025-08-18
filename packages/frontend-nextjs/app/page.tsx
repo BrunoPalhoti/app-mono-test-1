@@ -1,5 +1,6 @@
 "use client"
 import { Box, Typography, Button, useTheme } from '@mui/material';
+import Image from 'next/image';
 
 export default function Home() {
 
@@ -41,6 +42,29 @@ export default function Home() {
       >
         Aqui você acompanha os posts mais recentes, interage com outros usuários e compartilha novidades.
       </Typography>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 480,
+          mb: 4,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Image
+          src="/time 1.png"
+          alt="Time 1 interagindo na timeline"
+          width={480}
+          height={320}
+          style={{
+            width: '100%',
+            borderRadius: 24,
+            boxShadow: isDark ? '0 4px 24px rgba(0,0,0,0.25)' : '0 4px 24px rgba(0,0,0,0.10)',
+            objectFit: 'cover',
+          }}
+        />
+      </Box>
       <Button
         variant="contained"
         color="primary"
