@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import React from "react";
 import { AuthProvider } from "./context/AuthContext";
-import { SidebarUser } from "./components/SidebarUser/SidebarUser";
 import { CustomToolbar} from "./components/CustomToolbar/CustomToolbar";
 import { useAppTheme } from "./api/hooks/useAppTheme";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -26,7 +25,7 @@ const { mode, setMode, sidebarOpen, setSidebarOpen, theme } = useAppTheme();
               <CssBaseline />
               <AppBar position="static" color="primary" elevation={1}
                 sx={mode === 'dark' ? { backgroundColor: '#00D084' } : {}}>
-                {/* Detecta rota para passar props corretos para CustomToolbar */}
+            
                 {typeof window !== 'undefined' && window.location.pathname === '/' ? (
                   <CustomToolbar mode={mode} setMode={setMode} setSidebarOpen={setSidebarOpen} isHome={true} isLogin={false} />
                 ) : typeof window !== 'undefined' && window.location.pathname === '/login' ? (
@@ -36,10 +35,7 @@ const { mode, setMode, sidebarOpen, setSidebarOpen, theme } = useAppTheme();
                 )}
               </AppBar>
               <Drawer anchor="left" open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
-                <div style={{ width: 250, padding: 24, display: "flex", flexDirection: "column", alignItems: "center" }}>
               
-                  <SidebarUser />
-                </div>
               </Drawer>
               {children}
             </ThemeProvider>
