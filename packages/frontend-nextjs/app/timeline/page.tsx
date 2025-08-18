@@ -20,15 +20,16 @@ export default function TimelinePage() {
 
   return (
     <Box
-      minHeight="100vh"
-      width="100vw"
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
       sx={{
+        minHeight: "100vh",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         background: "linear-gradient(135deg, #1e293b 0%, #00B877 100%)",
         position: "relative",
         overflow: "hidden",
+        p: { xs: 1, md: 3 },
       }}
     >
       {profile && (

@@ -22,16 +22,15 @@ const LoginPage: React.FC = () => {
   } = useLoginForm();
 
   return (
-  <ThemeProvider theme={loginTheme}>
+    <ThemeProvider theme={loginTheme}>
       <Grid
         container
         justifyContent="center"
         alignItems="center"
         sx={{
           minHeight: "100vh",
-          p: 3,
-          background:
-            "linear-gradient(135deg, #e0f7f3, #f5f7fa)",
+          p: { xs: 1, md: 3 },
+          background: "linear-gradient(135deg, #e0f7f3, #f5f7fa)",
         }}
       >
         <Grid item xs={12} md={8} lg={6}>
@@ -44,11 +43,11 @@ const LoginPage: React.FC = () => {
               flexDirection: { xs: "column", md: "row" },
               backdropFilter: "blur(12px)",
               boxShadow: "0 12px 40px rgba(0,0,0,0.15)",
+              width: { xs: "100%", md: 600 },
+              mx: "auto",
             }}
           >
-   
-            <LoginIllustration  />
-
+            <LoginIllustration />
             <LoginForm
               emailInput={emailInput}
               password={password}
@@ -62,8 +61,6 @@ const LoginPage: React.FC = () => {
           </Paper>
         </Grid>
       </Grid>
-
-
     </ThemeProvider>
   );
 };
