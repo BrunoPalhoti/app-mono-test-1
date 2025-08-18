@@ -24,10 +24,10 @@ export function CustomToolbar({ mode, setMode, setSidebarOpen, isHome, isLogin }
             title="Ir para login"
             onClick={() => window.location.href = '/login'}
           >
-            {isLogin ? 'Home' : 'Entrar'}
+            Entrar
           </IconButton>
         </>
-      ) : isLogin ? (
+      ) : (
         <>
           <span style={{ flexGrow: 1 }} />
           <IconButton
@@ -37,13 +37,6 @@ export function CustomToolbar({ mode, setMode, setSidebarOpen, isHome, isLogin }
           >
             Home
           </IconButton>
-        </>
-      ) : (
-        <>
-          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => setSidebarOpen && setSidebarOpen(true)}>
-            <MenuIcon />
-          </IconButton>
-          <span style={{ flexGrow: 1 }} />
         </>
       )}
       <IconButton onClick={() => setMode(mode === 'light' ? 'dark' : 'light')} color="inherit" title="Alternar tema">
