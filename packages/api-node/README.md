@@ -35,7 +35,19 @@
     npm start
     ```
 
-3. Acesse a API em: [http://localhost:3333](http://localhost:333)
 
+3. Acesse a API em: [http://localhost:3333](http://localhost:3333)
 
-Qualquer dúvida, consulte o código em [`app.js`](packages/api-node/app.js).
+## Documentação Swagger
+
+Após subir a API, acesse a documentação interativa do Swagger:
+
+- [http://localhost:3333/docs](http://localhost:3333/docs)
+
+Nessa página você pode:
+- Visualizar todos os endpoints disponíveis
+- Ver exemplos de requisições e respostas
+- Testar chamadas diretamente pelo navegador
+
+Se quiser saber como cada rota funciona ou testar a API, utilize o Swagger para facilitar o desenvolvimento e integração.
+
