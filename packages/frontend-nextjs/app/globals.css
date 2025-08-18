@@ -104,6 +104,12 @@ body {
 }
 
 
+
+.home-bg {
+  background: #00D084;
+  min-height: 100vh;
+}
+
 @media (prefers-color-scheme: dark) {
   .textfield-green .MuiOutlinedInput-root {
     background-color: rgb(var(--primary-light-rgb)) !important;
