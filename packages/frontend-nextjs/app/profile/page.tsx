@@ -1,17 +1,13 @@
 "use client";
-import { Card, CardContent, Typography, Avatar, Box, Button } from '@mui/material';
-import { useAuth } from '../context/AuthContext';
+import { Box, Typography } from '@mui/material';
+import { useProfilePage } from './hooks/useProfilePage';
+import ProfileAvatar from './components/ProfileAvatar';
+import ProfileInfo from './components/ProfileInfo';
 
 export default function Profile() {
-  const { profile, logout } = useAuth();
- 
-  if (!profile) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
-        <Typography variant="h6" color="error">Usuário não logado</Typography>
-      </Box>
-    );
-  }
+  const { profile, logout, notLoggedComponent } = useProfilePage();
+
+  if (notLoggedComponent) return notLoggedComponent;
 
   return (
     <Box sx={{
@@ -37,62 +33,13 @@ export default function Profile() {
         flexDirection: "column",
         alignItems: "center",
       }}>
-       
-        <Box sx={{ position: "relative", mb: 3 }}>
-          <Avatar src={profile.avatar || 'https://via.placeholder.com/150'} alt={profile.name} sx={{ width: 130, height: 130, border: "5px solid #fff", zIndex: 1, boxShadow: "0 6px 24px rgba(0,0,0,0.18)" }} />
-          <Box sx={{
-            position: "absolute",
-            top: -8,
-            left: -8,
-            width: "146px",
-            height: "146px",
-            borderRadius: "50%",
-            background: "linear-gradient(135deg, #00D084, #00B877, #009966, #1e293b)",
-            animation: "spin 7s linear infinite",
-            zIndex: 0,
-            opacity: 0.7,
-          }} />
-        </Box>
-       
-        <Typography variant="h3" fontWeight={800} sx={{ color: "#00B877", mb: 1, textAlign: "center", letterSpacing: 1 }}>{profile.name}</Typography>
-      
-        <Typography variant="body1" sx={{ color: "#334155", mb: 1.5, textAlign: "center", fontSize: 18 }}>{profile.email}</Typography>
-     
-        <Typography variant="subtitle1" sx={{ color: "#009966", fontWeight: 700, mb: 3, textAlign: "center", fontSize: 17 }}>
-          {profile.profileType}
-        </Typography>
-       
-        <Button
-          variant="contained"
-          color="error"
-          sx={{
-            mt: 2,
-            fontWeight: 700,
-            borderRadius: 4,
-            px: 5,
-            py: 1.5,
-            fontSize: 18,
-            boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-            transition: "all 0.3s ease",
-            bgcolor: "#ffebee",
-            color: "#d32f2f",
-            '&:hover': {
-              bgcolor: "#ffcdd2",
-              transform: "translateY(-2px)",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.18)",
-            },
-          }}
-          onClick={logout}
-        >
-          Sair
-        </Button>
-        {/* animação de borda */}
-        <style jsx global>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
+        <ProfileAvatar name={profile.name} avatar={profile.avatar} />
+        <ProfileInfo
+          name={profile.name}
+          email={profile.email}
+          profileType={profile.profileType}
+          onLogout={logout}
+        />
       </Box>
     </Box>
   );
