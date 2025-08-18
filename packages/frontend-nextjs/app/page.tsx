@@ -68,7 +68,7 @@ export default function Home() {
       <Button
         variant="contained"
         color="primary"
-        sx={{ mb: 5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2, px: 3, py: 1 }}
+        sx={{ mb: 5, fontWeight: 600, fontSize: '1.1rem', borderRadius: 2, px: 3, py: 1, color: '#fff' }}
         onClick={() => window.location.href = '/timeline'}
       >
         Ir para Timeline
