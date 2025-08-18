@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 3333
 
-CMD npm run migrate && npm start
+CMD npm run migrate && npm run dev
