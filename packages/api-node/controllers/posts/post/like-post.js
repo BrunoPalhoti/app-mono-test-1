@@ -13,7 +13,14 @@ export const likePost = async (req, res) => {
     return res.status(403).json({ message: 'Usuário inativo ou não encontrado' })
   }
 
+  const likeResult = await pool.query('SELECT * FROM post_likes WHERE user_id = $1 AND post_id = $2', [userId, id])
+  if (likeResult.rowCount > 0) {
+    return res.status(400).json({ message: 'Você já deu like neste post' })
+  }
+
   try {
+    await pool.query('INSERT INTO post_likes (user_id, post_id) VALUES ($1, $2)', [userId, id])
+
     const result = await pool.query('UPDATE posts SET likes = likes + 1 WHERE id = $1 RETURNING id, likes', [id])
     if (result.rowCount === 0) {
       return res.status(404).json({ message: 'Post not found' })
