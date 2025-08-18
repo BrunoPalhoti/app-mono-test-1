@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useLikeHandler } from "../hooks/useLikeHandler";
-import { Post } from "../types/Post";
 import { TimelinePostsProps } from "../types/TimelinePostsProps";
 
 export function TimelinePosts({ posts, setPosts, likePost, likeLoading, profile }: TimelinePostsProps) {
@@ -39,10 +38,10 @@ export function TimelinePosts({ posts, setPosts, likePost, likeLoading, profile 
                       fontWeight={600}
                       color="text.primary"
                     >
-                      {post.user}
+                      {post.user_name || post.user}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
-                      {post.date}
+                      {post.date || post.created_at}
                     </Typography>
                   </Box>
                   {post.title && (

@@ -6,4 +6,6 @@ export interface Post {
   content: string;
   likes?: number;
   title?: string;
+  user_name?: string;
+  created_at?: string;
 }
