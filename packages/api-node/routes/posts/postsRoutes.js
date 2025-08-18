@@ -50,7 +50,7 @@ router.get('/', authenticate, getPosts)
  *       201:
  *         description: Post criado com sucesso
  */
-router.post('/createPost/:userId', authenticate, createPost)
+router.post('/createPost/:userId?', authenticate, createPost)
 
 /**
  * @swagger
