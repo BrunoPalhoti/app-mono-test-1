@@ -1,7 +1,14 @@
 import jwt from 'jsonwebtoken'
 import db from '../../../models/db.js'
+import { createClient } from 'redis'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret'
+
+// Cria e conecta o cliente Redis
+const redisClient = createClient({
+  url: `redis://${process.env.REDIS_HOST || 'localhost'}:${process.env.REDIS_PORT || 6379}`
+})
+redisClient.connect()
 
 export const login = async (req, res) => {
   const { email, password } = req.body || {}
@@ -26,6 +33,9 @@ export const login = async (req, res) => {
   }
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' })
+
+  // Salva o token no Redis com o id do usuário como chave
+  await redisClient.set(`token:${user.id}`, token, { EX: 3600 })
 
   const profile = {
     id: user.id,
