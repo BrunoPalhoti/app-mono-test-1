@@ -6,4 +6,5 @@ export interface TimelinePostsProps {
   likePost: (postId: number, userId: number) => Promise<any>;
   likeLoading: boolean;
   profile: any;
+
 }

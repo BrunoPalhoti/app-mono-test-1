@@ -9,6 +9,8 @@ export default function TimelinePage() {
   const {
     posts,
     setPosts,
+    title,
+    setTitle,
     content,
     setContent,
     handlePost,
@@ -37,6 +39,8 @@ export default function TimelinePage() {
       )}
 
       <TimelinePostForm
+        title={title}
+        setTitle={setTitle}
         content={content}
         setContent={setContent}
         handlePost={handlePost}

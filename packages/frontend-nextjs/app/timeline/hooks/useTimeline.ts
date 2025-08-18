@@ -8,6 +8,7 @@ import { useLikePost } from "../api/useLikePost";
 export function useTimeline() {
   const { posts: backendPosts } = useGetPosts();
   const [posts, setPosts] = useState<any[]>([]);
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { profile } = useAuth();
   const { postNew, loading } = usePostPosts();
@@ -23,15 +24,16 @@ export function useTimeline() {
   }, [backendPosts]);
 
   const handlePost = async () => {
-    if (!content.trim() || !profile) return;
+    if (!title.trim() || !content.trim() || !profile) return;
 
     const userId = profile.id;
     const avatar = profile.avatar || "";
     const user = profile.name || "Usuário";
-    const result = await postNew({ title: "", content, userId });
+    const result = await postNew({ title, content, userId });
     if (result) {
       const newPost = {
         ...result,
+        title,
         avatar,
         user,
         date: new Date().toLocaleString(),
@@ -44,6 +46,7 @@ export function useTimeline() {
         return dateB - dateA;
       });
       setPosts(updatedPosts);
+      setTitle("");
       setContent("");
     }
   };
@@ -51,6 +54,8 @@ export function useTimeline() {
   return {
     posts,
     setPosts,
+    title,
+    setTitle,
     content,
     setContent,
     handlePost,

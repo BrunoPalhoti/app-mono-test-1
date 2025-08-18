@@ -5,4 +5,5 @@ export interface Post {
   date: string;
   content: string;
   likes?: number;
+  title?: string;
 }

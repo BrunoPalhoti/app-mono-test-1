@@ -45,6 +45,16 @@ export function TimelinePosts({ posts, setPosts, likePost, likeLoading, profile 
                       {post.date}
                     </Typography>
                   </Box>
+                  {post.title && (
+                    <Typography
+                      variant="h6"
+                      fontWeight={700}
+                      color="primary"
+                      sx={{ mb: 1 }}
+                    >
+                      {post.title}
+                    </Typography>
+                  )}
                   <Typography
                     variant="body1"
                     color="text.primary"
