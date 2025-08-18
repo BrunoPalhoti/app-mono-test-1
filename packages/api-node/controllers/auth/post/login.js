@@ -1,50 +1,28 @@
 import jwt from 'jsonwebtoken'
-
-const authenticatedEmails = [];
+import db from '../../../models/db.js'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'change_this_secret'
 
-function mockGetUsers() {
-  return [
-    {
-      id: 1,
-      email: 'bruno@gmail.com',
-      name: 'Bruno',
-      profileType: 'admin',
-      avatar: 'https://randomuser.me/api/portraits/men/10.jpg'
-    },
-    {
-      id: 2,
-      email: 'maria@gmail.com',
-      name: 'Maria',
-      profileType: 'user',
-      avatar: 'https://randomuser.me/api/portraits/women/10.jpg'
-    }
-  ]
-}
-
-export const login = (req, res) => {
+export const login = async (req, res) => {
   const { email, password } = req.body || {}
 
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required' })
   }
 
-  const users = mockGetUsers()
-  const user = users.find((u) => u.email === email)
+  // Busca usuário no banco
+  const result = await db.query('SELECT * FROM users WHERE email = $1', [email])
+  const user = result.rows[0]
 
-  if (!user || password !== 'password') {
+  if (!user || password !== password) {
     return res.status(401).json({ message: 'Invalid credentials' })
   }
-
-
-  authenticatedEmails.push(user.email);
 
   const payload = {
     id: user.id,
     email: user.email,
     name: user.name,
-    profileType: user.profileType,
+    profileType: user.profile_type,
     avatar: user.avatar
   }
 
@@ -54,10 +32,8 @@ export const login = (req, res) => {
     id: user.id,
     email: user.email,
     name: user.name,
-    profileType: user.profileType,
+    profileType: user.profile_type,
     avatar: user.avatar
   }
   return res.json({ token, profile })
 }
-
-export { authenticatedEmails };
